@@ -57,11 +57,36 @@ public class Comercio {
      * @param nomeArquivoDados Nome do arquivo de dados a ser aberto.
      * @return Um vetor com os produtos carregados, ou vazio em caso de problemas de leitura.
      */
-    static Produto[] lerProdutos(String nomeArquivoDados) {
-        Produto[] vetorProdutos;
-        //TO DO
-        return vetorProdutos;
-    }
+    static Produto[] lerProdutos(String novoArquivoDados){
+
+		Scanner arquivo = null;
+		int i, numProdutos;
+		String linha;
+		Produto produto;
+		Produto[] produtosCadastrados = new Produto[MAX_NOVOS_PRODUTOS];
+
+		try {
+
+			arquivo = new Scanner(new File(nomeArquivoDados), Charset.forName("UTF-8"));
+			numProdutos = Integer.parseInt(arquivo.nextLine());
+				
+			for(i = 0; (i<numProdutos && i<MAX_NOVOS_PRODUTOS); i++){
+				linha = arquivo.nextLine();
+				produto = Produto.criarDoTexto(linha);
+				produtosCadastrados[i] = produto;
+			}
+
+			quantosProdutos = i;
+
+		} catch (IOException execaoArquivo) {
+			produtosCadastrados = null;
+		} finally {
+			arquivo.close();
+		}
+
+        return produtosCadastrados;
+
+	}
 
     /** Lista todos os produtos cadastrados, numerados, um por linha */
     static void listarTodosOsProdutos(){
@@ -76,7 +101,30 @@ public class Comercio {
     /** Localiza um produto no vetor de cadastrados, a partir do nome, e imprime seus dados. 
      *  A busca não é sensível ao caso.  Em caso de não encontrar o produto, imprime mensagem padrão */
     static void localizarProdutos(){
-        //TO DO
+        
+        boolean encontrado = false;
+
+        System.out.println("Digite o nome do produto a ser pesquisado: ");
+        String nomeBusca = teclado.nextLine();
+
+        cabecalho();
+        System.out.println("\nRESULTADO DA BUSCA PARA: " + nomeBusca.toUpperCase());
+
+        for(int i = 0; i< quantosProdutos;i++){
+
+            if(produtosCadastrados[i].descricao.equalsIgnoreCase(nomeBusca)){
+                System.out.println("Produto encontrado na posição: " + i);
+                System.out.println(produtosCadastrados[i].toString());
+                encontrado = true;
+                break;
+            }
+
+        }
+
+        if(!encontrado){
+            System.out.println("Produto " + nomeBusca + " não encontrado no sistema.");
+        }
+
     }
 
     /**
@@ -86,7 +134,12 @@ public class Comercio {
      * Uma sugestão de melhoria mais significativa poderia ser o uso de padrão Factory Method para criação dos objetos.
      */
     static void cadastrarProduto(){
-        //TO DO
+        
+        System.out.println("Qual o tipo de produto que você procura: ");
+        int tipo = teclado.nextInt();
+
+        
+
     }
 
     /**

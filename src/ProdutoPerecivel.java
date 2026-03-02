@@ -4,12 +4,11 @@ import java.time.temporal.ChronoUnit;
 
 public class ProdutoPerecivel extends Produto {
 
-    private int tipo = 2;
     private double DESCONTO = 0.25;
     private int PRAZO_DESCONTO = 7;
     private LocalDate dataDeValidade;
 
-    public ProdutoPerecivel(String desc, double precoCusto, double margemLucro, LocalDate dataDeValidade, double DESCONTO, int PRAZO_DESCONTO) {
+    public ProdutoPerecivel(String desc, double precoCusto, double margemLucro, LocalDate dataDeValidade) {
         super(desc, precoCusto, margemLucro);
 
         if(dataDeValidade.isBefore(LocalDate.now())){
@@ -23,10 +22,19 @@ public class ProdutoPerecivel extends Produto {
     public double valorVenda() {
         double desconto = 0d;
         int tempoDesconto = LocalDate.now().until(dataDeValidade).getDays();
+
         if(tempoDesconto<=PRAZO_DESCONTO){
             desconto = DESCONTO;
         }
+
         return(precoCusto * (1.0 + margemLucro))*(1-desconto);
+    }
+
+    @Override
+    public String gerarDadosTexto(){
+        String precoFormatado = String.format("%.2f", precoCusto).replace(",",".");
+        String margemFormatada = String.format("%.2f", margemLucro).replace(",",".");
+        return String.format("1;%s;%s;%s", descricao, precoFormatado, margemFormatada);
     }
 
     /**
