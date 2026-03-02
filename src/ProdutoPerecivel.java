@@ -4,6 +4,7 @@ import java.time.temporal.ChronoUnit;
 
 public class ProdutoPerecivel extends Produto {
 
+    private int tipo = 2;
     private double DESCONTO = 0.25;
     private int PRAZO_DESCONTO = 7;
     private LocalDate dataDeValidade;
@@ -27,6 +28,11 @@ public class ProdutoPerecivel extends Produto {
         }
         return(precoCusto * (1.0 + margemLucro))*(1-desconto);
     }
+
+    /**
+    * Gera uma linha de texto a partir dos dados do produto
+    * @return Uma string no formato "tipo; descrição;preçoDeCusto;margemDeLucro;[dataDeValidade]"
+    */
 
     @Override
     public String toString() {
