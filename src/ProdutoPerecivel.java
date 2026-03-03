@@ -34,7 +34,8 @@ public class ProdutoPerecivel extends Produto {
     public String gerarDadosTexto(){
         String precoFormatado = String.format("%.2f", precoCusto).replace(",",".");
         String margemFormatada = String.format("%.2f", margemLucro).replace(",",".");
-        return String.format("1;%s;%s;%s", descricao, precoFormatado, margemFormatada);
+        LocalDate dataValidade = this.dataDeValidade;
+        return String.format("1;%s;%s;%s;%s", descricao, precoFormatado, margemFormatada, dataValidade);
     }
 
     /**

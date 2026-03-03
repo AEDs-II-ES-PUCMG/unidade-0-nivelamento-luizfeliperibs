@@ -179,8 +179,15 @@ public class Comercio {
      * @param nomeArquivo Nome do arquivo a ser gravado.
      */
     public static void salvarProdutos(String nomeArquivo){
-        
-        
+
+        try (FileWriter writer = new FileWriter(nomeArquivo)) {
+            writer.write(String.valueOf(quantosProdutos) + "\n");
+            for(int i= 0; i<quantosProdutos; i++){
+                writer.write(produtosCadastrados[i].gerarDadosTexto() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao salvar os produtos: " + e.getMessage());
+        }
 
     }
 
