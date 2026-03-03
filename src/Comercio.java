@@ -138,7 +138,39 @@ public class Comercio {
         System.out.println("Qual o tipo de produto que você procura: ");
         int tipo = teclado.nextInt();
 
-        
+        if(tipo == 1){
+            System.out.println("Digite a descrição do produto: ");
+            String descricao = teclado.nextLine();
+            System.out.println("Digite o preço de custo do produto: ");
+            double precoDeCusto = teclado.nextDouble();
+            System.out.println("Digite a margem de lucro do produto: ");
+            double margemDeLucro = teclado.nextDouble();
+
+            ProdutoNaoPerecivel produto = new ProdutoNaoPerecivel(descricao, precoDeCusto, margemDeLucro);
+            produtosCadastrados[quantosProdutos] = produto;
+            quantosProdutos++;
+
+        } else if(tipo == 2){
+            System.out.println("Digite a descrição do produto: ");
+            String descricao = teclado.nextLine();
+            System.out.println("Digite o preço de custo do produto: ");
+            double precoDeCusto = teclado.nextDouble();
+            System.out.println("Digite a margem de lucro do produto: ");
+            double margemDeLucro = teclado.nextDouble();
+            System.out.println("Digite a data de validade do produto (dd/MM/yyyy): ");
+            String dataValidadeStr = teclado.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataValidade = LocalDate.parse(dataValidadeStr, formatter);
+
+            ProdutoPerecivel produto = new ProdutoPerecivel(descricao, precoDeCusto, margemDeLucro, dataValidade);
+            produtosCadastrados[quantosProdutos] = produto;
+            quantosProdutos++;
+
+        } else {
+
+            System.out.println("Tipo de produto inválido. Tente novamente.");
+
+        }
 
     }
 
@@ -147,7 +179,9 @@ public class Comercio {
      * @param nomeArquivo Nome do arquivo a ser gravado.
      */
     public static void salvarProdutos(String nomeArquivo){
-        //TO DO  
+        
+        
+
     }
 
     public static void main(String[] args) throws Exception {
