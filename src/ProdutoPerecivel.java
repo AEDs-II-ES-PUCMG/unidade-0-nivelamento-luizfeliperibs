@@ -54,10 +54,4 @@ public class ProdutoPerecivel extends Produto {
 
     }
 
-    if(this == true){
-        return true;
-    }
-
-    if(obj == null \\)
-
 }

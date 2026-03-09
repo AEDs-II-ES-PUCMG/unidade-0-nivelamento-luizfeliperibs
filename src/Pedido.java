@@ -11,6 +11,8 @@ public class Pedido {
 	
 	/** Vetor para armazenar os produtos do pedido */
 	private Produto[] produtos;
+
+	private ItemDePedido[] pedidos;
 	
 	/** Data de criação do pedido */
 	private LocalDate dataPedido;
@@ -31,6 +33,38 @@ public class Pedido {
 		quantProdutos = 0;
 		this.dataPedido = dataPedido;
 		this.formaDePagamento = formaDePagamento;
+	}
+
+	public void mesclarPedido(Pedido outroPedido){
+
+		boolean result = false;
+
+		for(int i = 1; i<= quantProdutos; i++){
+
+			result = pedidos[i].produto.equals(outroPedido.pedidos[i].produto.descricao);
+
+			if(result == true){
+				pedidos[i].quantidade += outroPedido.pedidos[i].quantidade;
+			} else {
+
+				for(int j = i ; j <= 10 ; j++){
+					if(pedidos[j] == null){
+						pedidos[j] = outroPedido.pedidos[i];
+					}
+				}
+
+			}
+
+			if(pedidos[i].equals(outroPedido)){
+				if(pedidos[i].precoVenda > outroPedido.pedidos[i].precoVenda){
+					pedidos[i].precoVenda = outroPedido.pedidos[i].precoVenda;
+				} else {
+					pedidos[i].precoVenda = pedidos[i].precoVenda;
+				}
+			}
+
+		}
+
 	}
 	
 	/**
@@ -64,6 +98,23 @@ public class Pedido {
 			valorPedido = valorPedido * (1.0 - DESCONTO_PG_A_VISTA);
 		}
 		return valorPedido;
+	}
+
+	public void imprimirRecibo(Pedido pedido){
+
+		System.out.println("Cupom Fiscal do Pedido:");
+
+		for(int i=1; i <= pedido.quantProdutos; i++){	
+
+			System.out.println("Nome: "+ pedido.pedidos[i].produto.descricao);
+			System.out.println("Quantidade: "+ pedido.pedidos[i].quantidade);
+			System.out.println("Preco Unitario: "+ pedido.pedidos[i].precoVenda);
+			System.out.println("Subtotal: "+ pedido.pedidos[i].calcularSubtotal());
+
+		}
+
+		System.out.println("Valor total: " + valorFinal());
+
 	}
 	
 	/**

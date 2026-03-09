@@ -2,7 +2,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-abstract class Produto {
+abstract class Produto{
 	
 	private static final double MARGEM_PADRAO = 0.2;
 	protected String descricao;

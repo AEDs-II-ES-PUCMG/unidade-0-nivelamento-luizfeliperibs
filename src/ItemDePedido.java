@@ -1,9 +1,9 @@
-public class ItemDePedido {
+public class ItemDePedido{
 
     // Atributos encapsulados
-    private Produto produto;
-    private int quantidade;
-    private double precoVenda;
+    protected Produto produto;
+    protected int quantidade;
+    protected double precoVenda;
 
     /**
      * Construtor da classe ItemDePedido.
@@ -12,10 +12,20 @@ public class ItemDePedido {
      */
     public ItemDePedido(Produto produto, int quantidade, double precoVenda) {
 
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.precoVenda = precoVenda;
+
     }
 
     public double calcularSubtotal() {
-        return 0;
+
+        if(quantidade > 10){
+            return (quantidade * 0.95)* precoVenda;
+        } else {
+            return quantidade * precoVenda;
+        }
+
     }
 
     // --- Sobrescrita do método equals ---
@@ -27,6 +37,17 @@ public class ItemDePedido {
     @Override
     public boolean equals(Object obj) {
 
-        return false;
+        if(this == obj){
+            return true;
+        }
+
+        if(obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+
+        ItemDePedido outroPedido = (ItemDePedido)obj;
+
+        return this.produto.equals(outroPedido.produto);
+
     }
 }
